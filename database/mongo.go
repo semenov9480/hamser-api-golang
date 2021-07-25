@@ -15,7 +15,7 @@ type Config struct {
 	Port string
 }
 
-func MongoConnect(cfg *Config) error {
+func MongoConnect(cfg *Config) {
 
 	// connection MongoDB
 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://%s:%s", cfg.Host, cfg.Port))
@@ -27,6 +27,6 @@ func MongoConnect(cfg *Config) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return client.Disconnect(ctx)
+	client.Disconnect(ctx)
 	}
 }
