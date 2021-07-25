@@ -2,27 +2,13 @@ package service
 
 type candel struct {
 	data struct {
-		date     int    `json:"x"`
-		closes   int    `json:"close"`
-		opens    int    `json:"open"`
-		high     int    `json:"high"`
-		low      int    `json:"low"`
-		interval string `json:"interval"`
-	} `json:"data"`
+		ID primitive.ObjectID `bson: "_id"`
+		date     int    `bson:"x"`
+		closes   int    `bson:"close"`
+		opens    int    `bson:"open"`
+		high     int    `bson:"high"`
+		low      int    `bson:"low"`
+		interval string `bson:"interval"`
+	} `bson:"data"`
 }
 
-type Candels struct {
-	pair_id     int    `json:"pair_id"`
-	platform    string `json:"platform"`
-	pair_name   string `json:"pair_name"`
-	update_date string `json:"update_date"`
-	JTM         struct {
-		candel *candel
-	} `json:"JTM"`
-	TTM struct {
-		candel *candel
-	} `json:"TTM"`
-	OTM struct {
-		candel *candel
-	} `json:"OTM"`
-}

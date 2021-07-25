@@ -2,23 +2,36 @@ package main
 
 import (
 	"log"
+	"github.com/semenov9480/hamser-api-golang/database"
+	"github.com/semenov9480/hamser-api-golang/handler"
+	"github.com/spf13/viper"
 
-	"./handler"
 )
 
 func main() {
+
 	if err := InitConfig(); err != nil {
 		log.Fatalf("Error init config: %s", err.Error())
 	}
+
+	db, err := database.MongoConnect(database.Config{
+		Host: viper.GetString("DBhost"),
+		Port: viper.GetString("DBport"),
+	})
+	if err != nil {
+		log.Fatalf("Error connection db: %s", err.Error())
+	}
+
+	//запуск сервера
 	handlers := new(handler.Handler)
 	serv := new(handler.Server)
-	if err := serv.Run("8081", handlers.InitRoutes()); err != nil {
+	if err := serv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
 		log.Fatalf("Error starting https server: %s", err.Error())
 	}
 }
 
 func InitConfig() error {
-	viper.AddConfigPath("config")
+	viper.AddConfigPath("configs")
 	viper.SetConfigName("config")
 	return viper.ReadInConfig()
 }
