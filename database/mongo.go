@@ -2,10 +2,9 @@ package database
 
 import (
 	"log"
+	"fmt"
 	"context"
 	"time"
-	"github.com/semenov9480/hamser-api-golang/handler"
-	"github.com/spf13/viper"
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -15,7 +14,8 @@ type Config struct {
 	Port string
 }
 
-func MongoConnect(cfg *Config) {
+func MongoConnect(cfg *Config) error {
+	fmt.Print(cfg)
 
 	// connection MongoDB
 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://%s:%s", cfg.Host, cfg.Port))
@@ -27,6 +27,5 @@ func MongoConnect(cfg *Config) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	client.Disconnect(ctx)
-	}
+	return err
 }
