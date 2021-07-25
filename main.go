@@ -14,7 +14,7 @@ func main() {
 		log.Fatalf("Error init config: %s", err.Error())
 	}
 
-	db, err := database.MongoConnect(database.Config{
+	err := database.MongoConnect(database.Config{
 		Host: viper.GetString("DBhost"),
 		Port: viper.GetString("DBport"),
 	})
@@ -25,7 +25,7 @@ func main() {
 	//запуск сервера
 	handlers := new(handler.Handler)
 	serv := new(handler.Server)
-	if err := serv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
+	if err := serv.Run(viper.GetString("ServerPort"), handlers.InitRoutes()); err != nil {
 		log.Fatalf("Error starting https server: %s", err.Error())
 	}
 }

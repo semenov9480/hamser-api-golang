@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"context"
 	"time"
+	//"encoding/json"
+	"go.mongodb.org/mongo-driver/bson"
     "go.mongodb.org/mongo-driver/mongo"
+//	"go.mongodb.org/mongo-driver/bson/primitive"
     "go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -14,11 +17,9 @@ type Config struct {
 	Port string
 }
 
-func MongoConnect(cfg *Config) error {
-	fmt.Print(cfg)
-
+func MongoConnect(cfg Config) error {
 	// connection MongoDB
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://%s:%s", cfg.Host, cfg.Port))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://"+cfg.Host+":"+ cfg.Port))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,5 +28,23 @@ func MongoConnect(cfg *Config) error {
 	if err != nil {
 		log.Fatal(err)
 	}
+    defer client.Disconnect(ctx)
+    
+      /*
+            List databases
+    */
+	var episodes []bson.M
+	collection := client.Database("app").Collection("get_klines")
+    databases, err := collection.Find(ctx, bson.M{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+	if err = databases.All(ctx, &episodes); err != nil {
+    	log.Fatal(err)
+	}
+	fmt.Println(episodes)
+
+	
 	return err
 }
