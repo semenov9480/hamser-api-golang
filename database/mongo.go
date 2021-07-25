@@ -27,6 +27,6 @@ func MongoConnect(cfg *Config) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer client.Disconnect(ctx)
+	return client.Disconnect(ctx)
 	}
 }
