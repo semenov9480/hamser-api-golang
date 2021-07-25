@@ -28,6 +28,5 @@ func MongoConnect(cfg *Config) error {
 		log.Fatal(err)
 	}
 	defer client.Disconnect(ctx)
-	return err
 	}
 }
