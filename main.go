@@ -2,10 +2,10 @@ package main
 
 import (
 	"log"
+
 	"github.com/semenov9480/hamser-api-golang/database"
 	"github.com/semenov9480/hamser-api-golang/handler"
 	"github.com/spf13/viper"
-
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 		log.Fatalf("Error init config: %s", err.Error())
 	}
 
-	err := database.MongoConnect(database.Config{
+	_, err := database.MongoConnect(database.Config{
 		Host: viper.GetString("DBhost"),
 		Port: viper.GetString("DBport"),
 	})

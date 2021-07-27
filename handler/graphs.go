@@ -5,5 +5,4 @@ import (
 )
 
 func (h *Handler) getCandels(c *gin.Context) {
-
 }
