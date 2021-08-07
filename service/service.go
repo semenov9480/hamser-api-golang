@@ -1,13 +1,13 @@
 package service
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/semenov9480/hamser-api-golang/database"
+	"github.com/semenov9480/hamser-api-golang/structs"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type GetMethods interface {
-	GetGraph(g *gin.Context) []primitive.M
+	GetCandels(input structs.GetGraphParams) (primitive.M, error)
 }
 
 type Service struct {

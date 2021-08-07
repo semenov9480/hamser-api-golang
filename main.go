@@ -26,8 +26,8 @@ func main() {
 	//запуск сервера
 	dbs := database.InitDB(db)
 	service := service.InitService(dbs)
-
 	handlers := handler.InitHandler(service)
+
 	serv := new(handler.Server)
 	if err := serv.Run(viper.GetString("ServerPort"), handlers.InitRoutes()); err != nil {
 		log.Fatalf("Error starting https server: %s", err.Error())

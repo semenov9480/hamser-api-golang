@@ -1,4 +1,4 @@
 ServerPort: "8001"
 DBhost: "localhost"
-DBport: "8081"
-DBname: "technical_analysis"
+DBport: "27017"
+DBname: "app"
