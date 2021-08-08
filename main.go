@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/rs/cors"
 	"github.com/semenov9480/hamser-api-golang/database"
 	"github.com/semenov9480/hamser-api-golang/handler"
 	"github.com/semenov9480/hamser-api-golang/service"
@@ -27,9 +28,10 @@ func main() {
 	dbs := database.InitDB(db)
 	service := service.InitService(dbs)
 	handlers := handler.InitHandler(service)
+	corsHandler := cors.Default().Handler(handlers.InitRoutes())
 
 	serv := new(handler.Server)
-	if err := serv.Run(viper.GetString("ServerPort"), handlers.InitRoutes()); err != nil {
+	if err := serv.Run(viper.GetString("ServerPort"), corsHandler); err != nil {
 		log.Fatalf("Error starting https server: %s", err.Error())
 	}
 }

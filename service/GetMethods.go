@@ -16,7 +16,7 @@ func RunGetService(db *database.Database) *GetService {
 }
 
 func (s GetService) GetCandels(input structs.GetGraphParams) (primitive.M, error) {
-	setReturn := bson.D{{"_id", 0}, {"pair_id", 1}, {"pair_name", 1}, {input.TypeFrame, 1}}
+	setReturn := bson.D{{"_id", 0}, {"pair_id", 1}, {"pair_name", 1}, {"JTM", 1}, {"TTM", 1}, {"OTM", 1}}
 	result, err := s.database.GetMethods.GetCandels(input.PairId, input.PairName, setReturn)
 
 	return result, err

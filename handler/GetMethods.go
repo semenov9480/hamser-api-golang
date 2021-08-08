@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -10,10 +11,12 @@ import (
 
 func (h *Handler) getCandels(c *gin.Context) {
 	var input structs.GetGraphParams
-	if err := c.BindJSON(&input); err != nil {
+	if err := c.BindQuery(&input); err != nil {
+
 		ErrorResponse(c, http.StatusBadRequest, "Bad input params")
 		return
 	}
+	fmt.Print(input)
 	result, err := h.service.GetCandels(input)
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -22,7 +25,7 @@ func (h *Handler) getCandels(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"token": result,
+		"candels": result,
 	})
 	log.Print(c.Request.RequestURI)
 
