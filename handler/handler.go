@@ -21,9 +21,9 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			// get
 			graph.GET("/candels", h.getCandels)
-			//graph.GET("/candelPatterns", h.GetCandels)
-			//graph.GET("/trendLines", h.GetCandels)
-			//graph.GET("/trendLevels", h.GetCandels)
+			graph.GET("/candelPatterns", h.getPatterns)
+			graph.GET("/trendLines", h.getLines)
+			graph.GET("/trendLevels", h.getLevels)
 			//graph.GET("/trend", h.GetCandels)
 			// post
 			//graph.POST("/klines", h.GetCandels)

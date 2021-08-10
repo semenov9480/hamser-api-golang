@@ -23,12 +23,65 @@ func (h *Handler) getCandels(c *gin.Context) {
 		return
 		//log.Fatal(err)
 	}
-
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"candels": result,
-	})
+	c.JSON(http.StatusOK, result)
 	log.Print(c.Request.RequestURI)
+}
 
+func (h *Handler) getLines(c *gin.Context) {
+	var input structs.GetToolsParams
+	if err := c.BindQuery(&input); err != nil {
+
+		ErrorResponse(c, http.StatusBadRequest, "Bad input params")
+		return
+	}
+	fmt.Print(input)
+
+	result, err := h.service.GetLines(input)
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+		//log.Fatal(err)
+	}
+	c.JSON(http.StatusOK, result)
+	log.Print(c.Request.RequestURI)
+}
+
+func (h *Handler) getLevels(c *gin.Context) {
+	var input structs.GetToolsParams
+	if err := c.BindQuery(&input); err != nil {
+
+		ErrorResponse(c, http.StatusBadRequest, "Bad input params")
+		return
+	}
+	fmt.Print(input)
+
+	result, err := h.service.GetLevels(input)
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+		//log.Fatal(err)
+	}
+	c.JSON(http.StatusOK, result)
+	log.Print(c.Request.RequestURI)
+}
+
+func (h *Handler) getPatterns(c *gin.Context) {
+	var input structs.GetToolsParams
+	if err := c.BindQuery(&input); err != nil {
+
+		ErrorResponse(c, http.StatusBadRequest, "Bad input params")
+		return
+	}
+	fmt.Print(input)
+
+	result, err := h.service.GetPatterns(input)
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+		//log.Fatal(err)
+	}
+	c.JSON(http.StatusOK, result)
+	log.Print(c.Request.RequestURI)
 }
 
 type errorResponse struct {

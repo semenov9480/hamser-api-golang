@@ -19,7 +19,6 @@ type Config struct {
 }
 
 func MongoConnect(cfg Config) (*mongo.Client, error) {
-	// connection MongoDB
 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://" + cfg.Host + ":" + cfg.Port))
 	if err != nil {
 		log.Fatal(err)
@@ -29,9 +28,6 @@ func MongoConnect(cfg Config) (*mongo.Client, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// Определение типа fmt.Println(reflect.TypeOf(client))
-	//defer client.Disconnect(ctx)
-
 	if err != nil {
 		return nil, err
 	}
